@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable camelcase */
 export interface DealProvider {
     id: number;
-    creator_user_id: any;
+    creator_user_id: { name: string;};
     user_id: any;
     person_id: any;
     org_id: any;
