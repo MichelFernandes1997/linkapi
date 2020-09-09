@@ -7,7 +7,7 @@ Integration of plataforms Pipedrive and Bling
 
 That endpoint have the responsability to get deals with status equals "won" in Pipedrive api and store in Bling api as a purchase order.
 
-Acess pidrive deals and bling purchase order to see the resources created by integration in both plataforms
+Acess pipedrive deals and bling purchase order to see the resources created by integration in both plataforms
 
 He use the method "GET".
 
