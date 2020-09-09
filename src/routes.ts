@@ -1,7 +1,5 @@
 import { Router } from 'express'
 
-import { createUserController } from './useCases/CreateUser'
-
 import { getDealsController } from './useCases/GetDeals'
 
 import { createPurchaseOrderController } from './useCases/CreatePurchaseOrderBling'
@@ -11,10 +9,6 @@ import { DealProvider } from './providers/pipedrive/Deals/IDealsProvider'
 import { GetProductBlingProvider } from './providers/bling/Products/GetProductBlingProvider'
 
 const router = Router()
-
-router.post('/users', (req, res) => {
-  return createUserController.handle(req, res)
-})
 
 router.get('/deals', async (req, res) => {
   const deals = await getDealsController.handle(req, res)

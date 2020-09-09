@@ -18,6 +18,10 @@ export interface PurchaseOrder {
     volumes: string | null;
 }
 
+export interface IGetPurchaseOrderBlingProvider {
+    getPurchaseOrder(): Promise<Array<PurchaseOrder> | Array<ErrorPurchaseOrder>>;
+}
+
 export interface IPurchaseOrderBlingProvider {
     storeDeals(dealsObject: Array<DealProvider>): Promise<Array<PurchaseOrder> | Array<ErrorPurchaseOrder>>;
 }

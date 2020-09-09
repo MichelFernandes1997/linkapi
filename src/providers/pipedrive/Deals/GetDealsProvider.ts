@@ -19,7 +19,7 @@ export class GetDealsProvider implements IDealsProvider {
             .then(result => result.json())
             .then(result => result.data)
             .catch(error => {
-              throw new Error(error.message || 'Unexpected error in GetUsersProvider')
+              throw new Error(error.message || 'Unexpected error in GetDealsProvider')
             })
 
           return response
@@ -28,12 +28,13 @@ export class GetDealsProvider implements IDealsProvider {
         }
       })
       .catch(error => { throw new Error(error.message || 'Unexpected error in GetDealsProvider') })
-      .finally(() => false)
 
     if (deals) {
       return deals
+    } else if (deals === null) {
+      throw new Error('You no have deals in Pipedrive')
     } else {
-      throw new Error('Unexpected error when get your deals in Pipedrive')
+      throw new Error('Unexpected error when get your deals of Pipedrive')
     }
   }
 }
