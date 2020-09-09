@@ -1,4 +1,4 @@
-import { IPurchaseOrderBlingProvider } from '../../providers/bling/PurchaseOrder/IPurchaseOrderBlingProvider'
+import { IPurchaseOrderBlingProvider, PurchaseOrder, ErrorPurchaseOrder } from '../../providers/bling/PurchaseOrder/IPurchaseOrderBlingProvider'
 
 import { DealProvider } from '../../providers/pipedrive/Deals/IDealsProvider'
 
@@ -8,7 +8,7 @@ export class CreatePurchaseOrderBlingUseCase {
         private purchaseOrderBlingProvider: IPurchaseOrderBlingProvider
   ) {}
 
-  async execute (dealsObject: Array<DealProvider>): Promise<string> {
+  async execute (dealsObject: Array<DealProvider>): Promise<Array<PurchaseOrder> | Array<ErrorPurchaseOrder>> {
     try {
       const purchaseOrderCreatedOnBling = this.purchaseOrderBlingProvider.storeDeals(dealsObject)
 

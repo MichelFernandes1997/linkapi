@@ -16,6 +16,8 @@ export class MongoDealsRepository implements IDealsRepository {
   }
 
   async store (): Promise<void> {
+    await DealSchema.find().remove()
+
     const getPurchaseOrderBlingProvider = new GetPurchaseOrderBlingProvider()
 
     const getDeals = await getPurchaseOrderBlingProvider.getPurchaseOrder() as Array<GetPurchaseOrder>
