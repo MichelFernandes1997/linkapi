@@ -8,13 +8,9 @@ import { DealProvider } from './providers/pipedrive/Deals/IDealsProvider'
 
 import { GetProductBlingProvider } from './providers/bling/Products/GetProductBlingProvider'
 
+import { getDealCollectionController } from './useCases/GetDealCollection'
+
 const router = Router()
-
-router.get('/deals', async (req, res) => {
-  const deals = await getDealsController.handle(req, res)
-
-  return res.status(200).send(deals)
-})
 
 router.get('/deals/integration', async (req, res) => {
   const dealsObject = await getDealsController.handle(req, res)
@@ -38,6 +34,12 @@ router.get('/products', async (req, res) => {
   const products = await getProductBlingProvider.getProductBling()
 
   return res.status(200).send(products)
+})
+
+router.get('/deals', async (req, res) => {
+  const deals = await getDealCollectionController.handle(req, res)
+
+  return res.status(200).send(deals)
 })
 
 export { router }

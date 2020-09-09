@@ -3,6 +3,10 @@ import { Schema } from 'mongoose'
 import mongoose from '../../database/mongoDB/connect'
 
 const dealSchema = new Schema({
+  id: {
+    type: String,
+    required: true
+  },
   amount: {
     type: String,
     required: true
@@ -13,4 +17,4 @@ const dealSchema = new Schema({
   }
 })
 
-export default mongoose.model('DealSchema', dealSchema)
+export default mongoose.model('DealSchema', dealSchema, 'dealColletion')

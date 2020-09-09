@@ -11,10 +11,6 @@ import { ProductBling, Error } from '../Products/IProductBlingProvider'
 
 import { MongoDealsRepository } from '../../../repositories/MongoDealsRepository'
 
-import { Deal } from '../../../entities/Deal'
-
-// import qs from 'querystring'
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const js2xmlparser = require('js2xmlparser')
 
@@ -149,11 +145,14 @@ export class CreatePurchaseOrderBlingProvider implements IPurchaseOrderBlingProv
             created.push(createdPurchaseOrders)
           }
 
-          const mongoRepository = new MongoDealsRepository()
+          try {
+            // eslint-disable-next-line new-parens
+            const mongoRepository = new MongoDealsRepository()
 
-          const dealsSavedOnMongo = await mongoRepository.store()
-
-          console.log(dealsSavedOnMongo)
+            await mongoRepository.store()
+          } catch (error) {
+            throw new Error(error.message || 'Unexpected Error')
+          }
 
           return created
         } else {

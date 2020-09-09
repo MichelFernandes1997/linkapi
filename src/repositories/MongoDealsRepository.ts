@@ -3,32 +3,37 @@ import { IDealsRepository } from './IDealsRepository'
 import { Deal } from '../entities/Deal'
 
 import DealSchema from '../schema/Deal/DealSchema'
+
 import { GetPurchaseOrderBlingProvider } from '../providers/bling/PurchaseOrder/GetPurchaseOrderBlingProvider'
 
+import { GetPurchaseOrder } from '../providers/bling/PurchaseOrder/IPurchaseOrderBlingProvider'
+
 export class MongoDealsRepository implements IDealsRepository {
-    private deals
+  async index (): Promise<Array<Deal>> {
+    const dealSchema = await DealSchema.find()
 
-    constructor () {
-      this.deals = DealSchema
-    }
+    return dealSchema as unknown as Array<Deal>
+  }
 
-    // async index (): Promise<Array<Deal>> {
+  async store (): Promise<void> {
+    const getPurchaseOrderBlingProvider = new GetPurchaseOrderBlingProvider()
 
-    // }
+    const getDeals = await getPurchaseOrderBlingProvider.getPurchaseOrder() as Array<GetPurchaseOrder>
 
-    async store (): Promise<Deal> {
-      const getPurchaseOrderBlingProvider = new GetPurchaseOrderBlingProvider()
+    const dealsToInsert = getDeals.map((dealToInsert) => (
+      { amount: dealToInsert.pedido.totalvenda, date: dealToInsert.pedido.data }
+    ))
 
-      const deal = await getPurchaseOrderBlingProvider.getPurchaseOrder()
+    for (const key in dealsToInsert) {
+      const deal = new Deal(dealsToInsert[key])
 
-      const dealsStored = this.deals.insertMany(deal, function (err, res) {
-        if (err) throw err
+      const dealSchema = new DealSchema(deal)
 
-        console.log('Number of documents inserted: ' + res.insertedCount)
+      dealSchema.save((error, doc) => {
+        if (error) throw new Error(error)
 
-        return res.ops
+        console.log(doc)
       })
-
-      return dealsStored
     }
+  }
 }

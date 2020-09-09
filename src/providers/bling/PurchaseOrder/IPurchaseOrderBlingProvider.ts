@@ -18,8 +18,28 @@ export interface PurchaseOrder {
     volumes: string | null;
 }
 
+export interface GetPurchaseOrder {
+    pedido: {
+        desconto: string;
+        observacoes: string;
+        observacaointerna: string;
+        data: string;
+        numero: string;
+        numeroOrdemCompra: string;
+        vendedor: string;
+        valorfrete: string;
+        totalprodutos: string;
+        totalvenda: string;
+        situacao: string;
+        tipoIntegracao: string;
+        client: {};
+        itens: {};
+        parcelas: {}
+    }
+}
+
 export interface IGetPurchaseOrderBlingProvider {
-    getPurchaseOrder(): Promise<Array<PurchaseOrder> | Array<ErrorPurchaseOrder>>;
+    getPurchaseOrder(): Promise<Array<GetPurchaseOrder> | Array<ErrorPurchaseOrder>>;
 }
 
 export interface IPurchaseOrderBlingProvider {
